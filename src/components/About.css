@@ -1,0 +1,21 @@
+.about-us {
+    display: flex;
+    flex-direction: column;
+    margin: 40px 20%;
+}
+
+.head {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.content {
+    font-size: var(--font-size);
+}
+
+@media(max-width:600px) {
+    .about-us {
+        margin: 40px 10%;
+    }
+}

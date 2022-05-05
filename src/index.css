@@ -1,13 +1,82 @@
-body {
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+
+body {
+  /* Variables */
+  --primary-color: white;
+  --secondary-color: rgb(73, 17, 255);
+  --secondary-color-dark: #350cbd;
+  --border-radius: 8px;
+  --checkBox-bg: greenyellow;
+  --light-grey: rgb(218, 218, 218);
+  --lighter-grey: rgb(240, 240, 240);
+  --font-size: 18px;
+  --notes-color: rgb(44, 44, 44);
+
+  background-color: white;
+}
+
+
+
+/* For button tag */
+.Button {
+  border: none;
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 8px 10px;
+  cursor: pointer;
+  font-weight: bold;
+
+  /* Borders */
+  border-radius: var(--border-radius);
+}
+
+
+.Button:active {
+  background-color: var(--secondary-color-dark);
+}
+
+
+/* For input tag */
+.Input {
+  background-color: transparent;
+  outline: none;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--light-grey);
+  padding: 10px 20px;
+  font-size: var(--font);
+  background-color: var(--lighter-grey);
+}
+
+
+
+/* Display toggle */
+.display-toggle {
+  display: none;
+}
+
+/* CheckBox Bg */
+.checkBtn-bg {
+  background-color: var(--checkBox-bg);
+}
+
+/* Task Completed */
+.task-completed {
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+
+
+
+
+@media (max-width: 600px) {
+  .Header {
+    flex-direction: column;
+    height: 20vh;
+  }
 }

@@ -1,0 +1,30 @@
+.bottom-navigtion {
+    height: 70px;
+    background-color: var(--secondary-color);
+
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    margin: auto;
+
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.bottom-navigtion div {
+    padding: 5px;
+    margin: 10px;
+    border-radius: 4px;
+}
+
+.bottom-navigtion div a {
+    font-weight: 500;
+    text-decoration: none;
+    color: rgb(196, 196, 196);
+}
