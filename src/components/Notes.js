@@ -25,14 +25,23 @@ export default function Notes() {
   const [noteListData,setNoteListData] = useState([]);
   const noteCollectionRef = collection(db,"Notes");
 
-  const [user, setUser] = useState(null);
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user)
-        setUser(user);
-      else
-        setUser(null);
+  const [currentUserId, setCurrentUserId] = useState(null);
+
+  function authChange(){
+    onAuthStateChanged(auth, (u) => {
+      if (u) {
+        setCurrentUserId(u.uid);
+        console.log('u=',u)
+        console.log("here=",currentUserId);
+        setMasonryLayout();
+      } else setCurrentUserId(null);
+      console.log("onauthchange");
     });
+  }
+
+  useEffect(() => {
+    authChange();
+    console.log(currentUserId);
   }, []);
 
   function addNoteBtnClicked(e) {
@@ -40,43 +49,52 @@ export default function Notes() {
     let descriptionValue = document.querySelector(".note-description").children[1].value;
 
     let item = {
-      userId: user.uid,
+      userId: currentUserId,
       index: noteListData.length,
-      heading:headingValue,
-      description:descriptionValue,
-
-    }
+      heading: headingValue,
+      description: descriptionValue,
+    };
     let nt = noteListData;
     nt.push(item);
+    console.log(nt);
+    console.log(item)
     setNoteListData(nt);
-    addNoteToFireBase(noteListData.length-1);
+    console.log(noteListData);    
+    setNoteListData(noteListData);
+    addNoteToFireBase(item);
   }
 
   function setMasonryLayout() {
     const noteList = document.querySelector(".note-list");
     let masonry = new Masonry(noteList, {
-      itemSelector: ".note-item",
+      itemSelector: ".note-item", 
       gutter: 25,
     });
   }
 
   useEffect(()=>{
     getAllNotesFromFireBase();
-    // setMasonryLayout();
   },[]);
 
+  // useEffect(()=>{
+  //   getAllNotesFromFireBase();
+  //   setMasonryLayout();
+  // },[noteListData);
 
 
-  function addNoteToFireBase(index){
-    console.log(noteListData[index]);
+
+  function addNoteToFireBase(item){
     try {
-      addDoc(noteCollectionRef, noteListData[index],user.uid);
+      addDoc(noteCollectionRef, item)
+      .then(()=>{ 
+        getAllNotesFromFireBase();
+        setMasonryLayout();
+      });
     } catch (error) {
       console.log(error.message);
     }
-
-    getAllNotesFromFireBase();
   }
+
 
   function deleteNoteFromFireBase(docId){
     const noteDoc = doc(db,"Notes",docId);
@@ -86,28 +104,28 @@ export default function Notes() {
     })
   }
 
-  async function getAllNotesFromFireBase(){
-    await getDocs(noteCollectionRef)
+  function getAllNotesFromFireBase(){
+    getDocs(noteCollectionRef)
     .then((snapshot)=>{
       let nList = [];
       snapshot.docs.forEach((doc)=>{
-        nList.push({...doc.data(),docId: doc.id})
+        if (doc.data().userId === currentUserId) {
+          nList.push({ ...doc.data(), docId: doc.id });
+        }
       })
       setNoteListData(nList);
-      console.log(noteListData);
     }).
     catch(err=>{
       console.log(err.message);
     })
 
-    setMasonryLayout();
   }
 
+  setInterval(getAllNotesFromFireBase,100);
 
 
 
-
-  if (user == null)
+  if (currentUserId == null && noteListData.length==0)
     return (
       <div
         style={{
@@ -121,10 +139,11 @@ export default function Notes() {
     );
 
 
+  
   return (
     <>
       <div className="container">
-        {/* <!-- Note adder --> */}
+        {/* <!-- Note adder */}
         <div className="note-taker">
           <span className="write-notes-here">Write notes here</span>
           <div className="note-heading">

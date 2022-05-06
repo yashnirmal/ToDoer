@@ -1,7 +1,7 @@
 import React from 'react';
 import "./Task.css";
 import deleteImg from "../assets/trash.png";
-import checkImg from "../assets/check.png"
+import checkImg from "../assets/check.png";
 import pinImg from "../assets/pin.png";
 import unPinImg from "../assets/unpin.png";
 import addImg from "../assets/thin_add.png";
@@ -44,6 +44,7 @@ export default function Task() {
   function makeNewHeading(newHeading){
     let tdata = taskListData;
     let item = {
+      userId:user.uid,
       index: taskListData.length,
       title : newHeading,
       tasks : []
@@ -68,27 +69,27 @@ export default function Task() {
 
 
 
-
-
-
-  async function getAllTasksFromFireBase(){
-    await getDocs(taskCollectionRef)
+  function getAllTasksFromFireBase(){
+    getDocs(taskCollectionRef)
     .then((snapshot)=>{
       let tList = [];
       snapshot.docs.forEach((doc)=>{
+        if(doc.data().userId === user.uid)
         tList.push({...doc.data(),docId: doc.id})
       })
       setTaskListData(tList);
-      console.log(taskListData);
     }).
     catch(err=>{
-      console.log(err.message());
+      console.log(err.message);
     })
   }
 
   useEffect(()=>{
     getAllTasksFromFireBase();
   },[]);
+  
+  
+  setInterval(getAllTasksFromFireBase,100);
 
 
 
@@ -99,12 +100,13 @@ export default function Task() {
       <h2>Please Login First</h2>
     </div>
   )
+  
 
   return (
     <>
       <div className="grid-container">
         {
-          // console.log(documen.querySelector('.item'));
+          // console.log(documen.querySelector('.item'));  
           taskListData.map((el,index)=>(
             
             <div className="item">
