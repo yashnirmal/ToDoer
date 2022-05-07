@@ -6,7 +6,7 @@ import { auth } from "./Firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 
 
-export default function Navbar() {
+export default function Navbar(props) {
 
     const [user, setUser] = useState(null);
 
@@ -18,7 +18,8 @@ export default function Navbar() {
     }, []);
 
     function logOutClicked(){
-        signOut(auth);
+      signOut(auth);
+      props.handleSnack("Logout successful", "success");
     }
 
   return (

@@ -33,7 +33,6 @@ export default function Notes() {
         setCurrentUserId(u.uid);
         console.log('u=',u)
         console.log("here=",currentUserId);
-        setMasonryLayout();
       } else setCurrentUserId(null);
       console.log("onauthchange");
     });
@@ -64,21 +63,12 @@ export default function Notes() {
     addNoteToFireBase(item);
   }
 
-  function setMasonryLayout() {
-    const noteList = document.querySelector(".note-list");
-    let masonry = new Masonry(noteList, {
-      itemSelector: ".note-item", 
-      gutter: 25,
-    });
-  }
-
   useEffect(()=>{
     getAllNotesFromFireBase();
   },[]);
 
   // useEffect(()=>{
   //   getAllNotesFromFireBase();
-  //   setMasonryLayout();
   // },[noteListData);
 
 
@@ -88,7 +78,6 @@ export default function Notes() {
       addDoc(noteCollectionRef, item)
       .then(()=>{ 
         getAllNotesFromFireBase();
-        setMasonryLayout();
       });
     } catch (error) {
       console.log(error.message);
@@ -121,7 +110,7 @@ export default function Notes() {
 
   }
 
-  setInterval(getAllNotesFromFireBase,100);
+  // setInterval(getAllNotesFromFireBase,100);
 
 
 
@@ -167,34 +156,32 @@ export default function Notes() {
         </div>
 
         {/* Note List -- */}
-        <div className="note-list">
-          {
-          noteListData.map((el, key) => (
-            <div className="note-item">
-              <div>
-                <p className="note-item-heading">{el.heading}</p>
-                <img
-                  className="note-delete-btn"
-                  src={redDelete}
-                  alt="delete"
-                  onClick={(e)=>{
-                    let item = e.target;
-                    item.parentElement.parentElement.remove();
-                    setMasonryLayout();
-                    
-                    let nlist = noteListData;
-                    // nlist.splice(el.index,1);
-                    // setNoteListData(nlist);
-                    // console.log(noteListData);
-                    console.log(el.index);
-                    deleteNoteFromFireBase(el.docId);
-                  }}
-                />
+        <div className="note-list-container">
+          <div className="note-list">
+            {
+            noteListData.map((el, key) => (
+              <div className="note-item">
+                <div>
+                  <p className="note-item-heading">{el.heading}</p>
+                  <img
+                    className="note-delete-btn"
+                    src={redDelete}
+                    alt="delete"
+                    onClick={(e)=>{
+                      // let item = e.target;
+                      // item.parentElement.parentElement.remove();
+                      
+                      let nlist = noteListData;
+                      console.log(el.index);
+                      deleteNoteFromFireBase(el.docId);
+                    }}
+                  />
+                </div>
+                <p className="note-item-description">{el.description}</p>
               </div>
-              <p className="note-item-description">{el.description}</p>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+      </div>
       </div>
 
       <BottomNav />

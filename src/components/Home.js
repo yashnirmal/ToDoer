@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Snackbar from 'node-snackbar';
 
 
-export default function Home() {
+export default function Home(props) {
 
     let navigate = useNavigate();
 
@@ -17,32 +17,13 @@ export default function Home() {
             const password = document.querySelector(".password").value;
             
             try {
-                const result = await signInWithEmailAndPassword(auth,email,password);
-                navigate('/tasks');
-                Snackbar.show({
-                  text: "LogIn Successful",
-                  pos: "bottom-center",
-                  actionText: "close",
-                  backgroundColor: "#00ff00",
-                  actionTextColor: "X",
-                  textColor: "#ffffff",
-                  onActionClick: function (el) {
-                    console.log(el);
-                  },
+                await signInWithEmailAndPassword(auth,email,password)
+                .then(()=>{
+                  props.handleSnack("Login Success! Welcome "+email,"success");
+                  navigate('/tasks');
                 });
             } catch (error) {
-                console.log(error.message);
-                Snackbar.show({
-                  text: "LogIn Unsuccessful",
-                  pos: "bottom-center",
-                  actionText: "close",
-                  backgroundColor: "#ff0000",
-                  actionTextColor: "X",
-                  textColor: "#ffffff",
-                  onActionClick: function (el) {
-                    console.log(el);
-                  },
-                });
+              props.handleSnack("Wrong Mail/Password","error");
             }
 
         }
@@ -52,25 +33,18 @@ export default function Home() {
             const password = document.querySelector('.password').value;
             const confirmPassword = document.querySelector('.confirm-password').value;
             if(password!==confirmPassword){
-              console.log("Passwords don't match!!!")
+              props.handleSnack("Passwords don't match", "error");
               return;
             }
             try{
-                const result = await createUserWithEmailAndPassword(auth,email,password);
-                console.log(result);
-                Snackbar.show({
-                    text : 'Registration Successful',
-                    pos:'bottom-center',
-                    actionText:'close',
-                    backgroundColor:'#00ff00',
-                    actionTextColor:'X',
-                    textColor: "#ffffff",
-                    onActionClick: function(el){
-                        console.log(el);
-                    }
-                })
+              await createUserWithEmailAndPassword(auth,email,password)
+              .then((userCredentials)=>{
+                  props.handleSnack("Register Success! Welcome "+email,"success");
+                navigate('/tasks');
+              });
+                
             }catch(err){
-                console.log(err.message);
+              props.handleSnack("Registration Error! Try Again ", "error");
             }
 
 
