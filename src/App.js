@@ -5,6 +5,7 @@ import Home from './components/Home';
 import Task from './components/Task';
 import Notes from './components/Notes';
 import About from './components/About';
+import Footer from './components/Footer';
 import Contact from './components/Contact';
 import {Routes,Route} from 'react-router-dom';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -44,6 +45,7 @@ function App() {
         <Route path="/about" element={<About />} exact />
         <Route path="/contact" element={<Contact handleSnack={handleSnack}/>} exact />
       </Routes>
+      <Footer />
       <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
         <Alert onClose={handleClose} severity={severity}>
           {msg}

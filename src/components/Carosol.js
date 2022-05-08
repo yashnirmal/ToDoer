@@ -6,7 +6,6 @@ import c3 from "../assets/carosol/c3.jpeg"
 
 export default function Carosol() {
   return (
-    <div className="300-px-wide">
       <div
         id="carouselExampleIndicators"
         class="carousel slide"
@@ -65,6 +64,5 @@ export default function Carosol() {
           <span class="visually-hidden">Next</span>
         </button>
       </div>
-    </div>
   );
 }

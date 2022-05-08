@@ -5,9 +5,10 @@
 }
 
 .head {
-    font-size: 3rem;
+    font-size: 5rem;
     font-weight: bold;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .content {

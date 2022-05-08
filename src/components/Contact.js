@@ -46,7 +46,7 @@ export default function Contact(props) {
             }}
             >
             <div style={{ flex: 1, marginRight: 30 }}>
-              <p>Your e-Mail</p>
+              <p>Your E-Mail</p>
               <input
                 style={{ width: "100%", marginBottom: 5, marginTop: 5 }}
                 className="Input"

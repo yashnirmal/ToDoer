@@ -9,7 +9,8 @@
 body {
   /* Variables */
   --primary-color: white;
-  --secondary-color: rgb(73, 17, 255);
+  --secondary-color: #9b5de9;
+  /* --secondary-color: rgb(73, 17, 255); */
   --secondary-color-dark: #350cbd;
   --border-radius: 8px;
   --checkBox-bg: greenyellow;
