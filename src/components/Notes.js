@@ -20,7 +20,7 @@ import { onAuthStateChanged } from "firebase/auth";
 //   docId : ""
 // }
 
-export default function Notes() {
+export default function Notes(props) {
 
   const [noteListData,setNoteListData] = useState([]);
   const noteCollectionRef = collection(db,"Notes");
@@ -77,9 +77,11 @@ export default function Notes() {
     try {
       addDoc(noteCollectionRef, item)
       .then(()=>{ 
+        props.handleSnack("Note added!","info");
         getAllNotesFromFireBase();
       });
     } catch (error) {
+      props.handleSnack("Couldn't add the note", "error");
       console.log(error.message);
     }
   }
@@ -88,8 +90,10 @@ export default function Notes() {
   function deleteNoteFromFireBase(docId){
     const noteDoc = doc(db,"Notes",docId);
     deleteDoc(noteDoc)
+    .then(()=> props.handleSnack("Note Deleted!","info"))
     .catch(err =>{
       console.log(err.message);
+      props.handleSnack("Couldn't delete the note", "error");
     })
   }
 
@@ -110,7 +114,21 @@ export default function Notes() {
 
   }
 
-  // setInterval(getAllNotesFromFireBase,100);
+  
+
+
+  function dismissTimeInterval() {
+    clearInterval(intervalId);
+    console.log("Cleared Time Interval");
+  }
+  if (noteListData.length == 0) {
+    var intervalId = setInterval(getAllNotesFromFireBase, 100);
+  }
+  if (noteListData.length != 0) {
+    setTimeout(dismissTimeInterval, 10000);
+  }
+
+
 
 
 
@@ -126,6 +144,8 @@ export default function Notes() {
         <h2>Please Login First</h2>
       </div>
     );
+
+
 
 
   

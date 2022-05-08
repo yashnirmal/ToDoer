@@ -29,7 +29,7 @@ import SnackBar from "node-snackbar";
 //   }]
 // }  
 
-export default function Task() {
+export default function Task(props) {
 
   const [taskListData,setTaskListData] = useState([]);
   const taskCollectionRef = collection(db,"Tasks");
@@ -56,11 +56,11 @@ export default function Task() {
 
     try{
       addDoc(taskCollectionRef,item).then(()=>{
-        SnackBar.show({width:'500px',text:"New Heading Added",showAction:false,pos:"top-center" });
+        props.handleSnack("New heading made", "info");
       });
     }
     catch(err){
-      console.log(err);
+      props.handleSnack("Couldn't make new heading", "error");
     }
 
     getAllTasksFromFireBase();
@@ -143,7 +143,12 @@ export default function Task() {
 
                         // Delete task from firebase
                         const taskDoc = doc(db, "Tasks", el.docId);
-                        deleteDoc(taskDoc).catch((err) => {
+                        deleteDoc(taskDoc)
+                        .then(()=>{
+                          props.handleSnack("Deleted Heading", "info");
+                        })
+                        .catch((err) => {
+                          props.handleSnack("Couldn't Delete the heading", "error");
                           console.log(err.message);
                         });
                       }}
@@ -209,8 +214,12 @@ export default function Task() {
                             const taskDocRef = doc(db, "Tasks", el.docId);
                             updateDoc(taskDocRef, {
                               tasks: el.tasks,
-                            }).catch((err) => {
-                              console.log("Error during updation of task !!!");
+                            })
+                            .then(()=>{
+                              props.handleSnack("Task Completed!", "info");
+                            })
+                            .catch((err) => {
+                              props.handleSnack("Couldn't update the task!", "error");
                             });
                           }}
                         >
@@ -245,8 +254,12 @@ export default function Task() {
                           const taskDocRef = doc(db, "Tasks", el.docId);
                           updateDoc(taskDocRef, {
                             tasks: el.tasks,
-                          }).catch((err) => {
-                            console.log("Error during deletion of task !!!");
+                          })
+                          .then(()=>{
+                            props.handleSnack("Task deleted!", "info");
+                          })
+                          .catch((err) => {
+                            props.handleSnack("Couldn't Delete the task!", "error");
                           });
 
                           // getAllTasksFromFireBase();

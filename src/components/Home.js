@@ -39,7 +39,7 @@ export default function Home(props) {
             try{
               await createUserWithEmailAndPassword(auth,email,password)
               .then((userCredentials)=>{
-                  props.handleSnack("Register Success! Welcome "+email,"success");
+                props.handleSnack("Register Success! Welcome "+email,"success");
                 navigate('/tasks');
               });
                 
