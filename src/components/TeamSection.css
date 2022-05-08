@@ -1,0 +1,104 @@
+/* @import url("https://fonts.googleapis.com/css?family=Poppins&display=swap"); */
+
+.team-container {
+    margin: 20px 40px;
+}
+
+.profile-heading {
+    font-size: 60px;
+    text-align:center;
+    margin-bottom: 40px;
+}
+
+.profile-heading span {
+    font-style: italic;
+    font-size: 30px;
+}
+
+.profiles-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 80px;
+    color: rgb(28, 28, 28);
+    
+}
+
+.user-profile {
+    flex-basis: 260px;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.user-profile .profile-img {
+    height: 260px;
+    width: 260px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 400ms;
+}
+
+.user-profile img{
+    width: 30px;
+    margin: 10px;
+}
+
+
+.user-name {
+    margin-top: 30px;
+    font-size: 35px;
+}
+
+.user-profile h5 {
+    font-size: 18px;
+    font-weight: 100;
+    letter-spacing: 3px;
+    color: rgb(103, 103, 103);
+}
+
+.user-profile p {
+    font-size: 16px;
+    margin-top: 20px;
+    text-align: justify;
+}
+
+@media only screen and (max-width: 1150px) {
+    .profiles-container {
+        flex-direction: column;
+    }
+
+    .user-profile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .user-profile p {
+        text-align: center;
+        margin: 20px 60px 80px 60px;
+        font-size: 20px;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .profile-heading {
+        font-size: 40px;
+        color: white;
+        text-align: center;
+    }
+
+    .heaprofile-heading span {
+        font-size: 15px;
+    }
+
+    .profiles-container {
+        margin: 20px 0;
+    }
+
+    .user-profile p {
+        margin: 20px 10px 80px 10px;
+    }
+}

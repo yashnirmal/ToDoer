@@ -56,7 +56,7 @@ export default function Task(props) {
 
     try{
       addDoc(taskCollectionRef,item).then(()=>{
-        props.handleSnack("New heading made", "info");
+        props.handleSnack("New Todo created", "info");
       });
     }
     catch(err){
@@ -116,7 +116,7 @@ export default function Task(props) {
         <div style={{ width: "100vw", display: "flex", justifyContent: "center" }}>
           <h2>Please Login First</h2>
         </div>
-      ) :(
+      ):(
       <>
         <div className="grid-container">
           {
@@ -307,7 +307,12 @@ export default function Task(props) {
                       const taskDocRef = doc(db, "Tasks", el.docId);
                       updateDoc(taskDocRef, {
                         tasks: el.tasks,
-                      }).catch((err) => {
+                      })
+                      .then(()=>{
+                      	props.handleSnack("New Task added!","info");
+                      })
+                      
+                      .catch((err) => {
                         console.log("Error during updatoin !!!");
                       });
 

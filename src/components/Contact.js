@@ -26,7 +26,7 @@ export default function Contact(props) {
     )
     .then((response,error)=>{
       console.log(response.text);
-      props.handleSnack("Thankyou for sharing your feedback!","success");
+      props.handleSnack("Thank You! Your feedback has been recorded.","success");
     })
     .catch((err)=>console.log(err.message));
   }
