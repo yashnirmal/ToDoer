@@ -21,8 +21,9 @@ export default function TeamSection() {
             <h3 class="user-name">Yash Nirmal</h3>
             <h5>Co-Founder</h5>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam
-              facilis sint quod.
+              <b>E-mail</b> : yash15nirmal@gmail.com 
+            <br />
+              Student, National Institute of Technology Karnataka,Surathkal.
             </p>
             <div
               style={{
@@ -60,8 +61,9 @@ export default function TeamSection() {
             <h3 class="user-name">Kartikeya Ranjan</h3>
             <h5>Co-Founder</h5>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum
-              eveniet soluta hic sunt sit reprehenderit.
+              <b>E-mail</b> : kartikeyaranjan01@gmail.com 
+            <br />
+              Student, National Institute of Technology Karnataka,Surathkal.
             </p>
             <div
               style={{
