@@ -22,6 +22,7 @@ export default function Navbar(props) {
       props.handleSnack("Logout successful", "success");
     }
 
+    
   return (
     <div className="Header">
         <Link to="/">

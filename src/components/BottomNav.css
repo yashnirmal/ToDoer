@@ -15,6 +15,9 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+
+    border: 1px solid white;
+    border-bottom: none;
 }
 
 .bottom-navigtion div {

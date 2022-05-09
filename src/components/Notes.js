@@ -130,81 +130,74 @@ export default function Notes(props) {
 
 
 
-
-
-  if (currentUserId == null && noteListData.length==0)
-    return (
-      <div
-        style={{
-          width: "100vw",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <h2>Please Login First</h2>
-      </div>
-    );
-
-
-
-
-  
   return (
     <>
-      <div className="note-container">
-        {/* <!-- Note adder */}
-        <div className="note-taker">
-          <span className="write-notes-here">Write notes here</span>
-          <div className="note-heading">
-            <p>Heading</p>
-            <input
-              className="Input"
-              type="text"
-              placeholder="Heading here..."
-            />
-          </div>
-          <div className="note-description">
-            <p>Description</p>
-            <textarea
-              className="Input"
-              placeholder="What's on your mind?"
-            ></textarea>
-          </div>
-          <button className="note-adder-btn Button" onClick={addNoteBtnClicked}>
-            Add Note
-          </button>
+      {(currentUserId == null && noteListData.length==0)?(
+        <div
+          style={{
+            width: "100vw",
+            display: "flex",
+            justifyContent: "center",
+          }}>
+          <h2>Please Login First</h2>
         </div>
-
-        {/* Note List -- */}
-        <div className="note-list-container">
-          <div className="note-list">
-            {
-            noteListData.map((el, key) => (
-              <div className="note-item">
-                <div>
-                  <p className="note-item-heading">{el.heading}</p>
-                  <img
-                    className="note-delete-btn"
-                    src={redDelete}
-                    alt="delete"
-                    onClick={(e)=>{
-                      // let item = e.target;
-                      // item.parentElement.parentElement.remove();
-                      
-                      let nlist = noteListData;
-                      console.log(el.index);
-                      deleteNoteFromFireBase(el.docId);
-                    }}
-                  />
-                </div>
-                <p className="note-item-description">{el.description}</p>
-              </div>
-            ))}
+      ):(
+        <>
+        <div className="note-container">
+          {/* <!-- Note adder */}
+          <div className="note-taker">
+            <span className="write-notes-here">Write notes here</span>
+            <div className="note-heading">
+              <p>Heading</p>
+              <input
+                className="Input"
+                type="text"
+                placeholder="Heading here..."
+              />
+            </div>
+            <div className="note-description">
+              <p>Description</p>
+              <textarea
+                className="Input"
+                placeholder="What's on your mind?"
+              ></textarea>
+            </div>
+            <button className="note-adder-btn Button" onClick={addNoteBtnClicked}>
+              Add Note
+            </button>
           </div>
-      </div>
-      </div>
 
-      <BottomNav />
+          {/* Note List -- */}
+          <div className="note-list-container">
+            <div className="note-list">
+              {noteListData.map((el, key) => (
+                <div className="note-item">
+                  <div>
+                    <p className="note-item-heading">{el.heading}</p>
+                    <img
+                      className="note-delete-btn"
+                      src={redDelete}
+                      alt="delete"
+                      onClick={(e) => {
+                        // let item = e.target;
+                        // item.parentElement.parentElement.remove();
+
+                        let nlist = noteListData;
+                        console.log(el.index);
+                        deleteNoteFromFireBase(el.docId);
+                      }}
+                    />
+                  </div>
+                  <p className="note-item-description">{el.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <BottomNav />
     </>
+    )
+  }
+  </>
   );
 }
