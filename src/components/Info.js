@@ -8,10 +8,10 @@ export default function Info() {
   return (
     <>
       <div className="info-container-div">
-        <div className="item1">
+        <div className="item1-div">
           <img src={todoImg} alt="" />
         </div>
-        <div className="item2">
+        <div className="item2-div">
           <h1>Free up your mental space</h1>
           <p>
             Regain clarity and calmness by getting all those tasks out of your
@@ -25,23 +25,23 @@ export default function Info() {
         className="info-container-div"
         style={{ backgroundColor: "#ffffff" }}
       >
-        <div className="item2">
+        <div className="item2-div">
           <h1>Find your productivity happy place</h1>
           <p>
             ToDoEr is a powerful tool for managing your tasks right alongside
             all of the information you work with every day.
           </p>
         </div>
-        <div className="item1">
+        <div className="item1-div">
           <img src={noteImg} alt="" />
         </div>
       </div>
 
       <div className="info-container-div">
-        <div className="item1">
+        <div className="item1-div">
           <img src={teamImg} alt="" />
         </div>
-        <div className="item2">
+        <div className="item2-div">
           <h1>A second brain, for you, forever.</h1>
           <p>
             ToDoEr is a powerful tool that can help executives, entrepreneurs

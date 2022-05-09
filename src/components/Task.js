@@ -12,7 +12,6 @@ import {collection,addDoc,doc,updateDoc,getDocs,deleteDoc} from 'firebase/firest
 import {db} from './Firebase';
 import { auth } from "./Firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import SnackBar from "node-snackbar";
 
 
 
@@ -132,11 +131,12 @@ export default function Task(props) {
                       onClick={(e) => {
                         // let item = e.target;
                         // let headingItem =
-                        //   item.parentElement.parentElement.parentElement;
+                        //   item.parentElement.parentElement;
                         // console.log(headingItem);
                         // headingItem.remove();
 
                         let tdlist = taskListData;
+                        let hName = tdlist[el.index].title;
                         tdlist.splice(el.index, 1);
                         setTaskListData(tdlist);
                         console.log(taskListData);
@@ -145,7 +145,7 @@ export default function Task(props) {
                         const taskDoc = doc(db, "Tasks", el.docId);
                         deleteDoc(taskDoc)
                         .then(()=>{
-                          props.handleSnack("Deleted Heading", "info");
+                          props.handleSnack("Deleted Todo", "info");
                         })
                         .catch((err) => {
                           props.handleSnack("Couldn't Delete the heading", "error");
@@ -153,7 +153,7 @@ export default function Task(props) {
                         });
                       }}
                     />
-                    <img
+                    {/* <img
                       className="pin-unpin-btn"
                       src={pinImg}
                       onClick={(e) => {
@@ -165,7 +165,7 @@ export default function Task(props) {
                           item.setAttribute("src", pinImg);
                         }
                       }}
-                    />
+                    /> */}
                   </div>
                 </div>
 
@@ -345,6 +345,8 @@ export default function Task(props) {
           </div>
         </div>
 
+
+            {/* Modal */}
         <div className="modal-bg display-toggle">
           <div className="modal">
             <div>

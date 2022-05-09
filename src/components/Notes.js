@@ -151,7 +151,7 @@ export default function Notes(props) {
   
   return (
     <>
-      <div className="container">
+      <div className="note-container">
         {/* <!-- Note adder */}
         <div className="note-taker">
           <span className="write-notes-here">Write notes here</span>
