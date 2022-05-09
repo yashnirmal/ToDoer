@@ -25,22 +25,22 @@ export default function Notes(props) {
   const [noteListData,setNoteListData] = useState([]);
   const noteCollectionRef = collection(db,"Notes");
 
-  const [currentUserId, setCurrentUserId] = useState(null);
+  const [user, setUser] = useState(null);
 
   function authChange(){
     onAuthStateChanged(auth, (u) => {
       if (u) {
-        setCurrentUserId(u.uid);
+        setUser(u.uid);
         console.log('u=',u)
-        console.log("here=",currentUserId);
-      } else setCurrentUserId(null);
+        console.log("here=",user);
+      } else setUser(null);
       console.log("onauthchange");
     });
   }
 
   useEffect(() => {
     authChange();
-    console.log(currentUserId);
+    console.log(user);
   }, []);
 
   function addNoteBtnClicked(e) {
@@ -48,7 +48,7 @@ export default function Notes(props) {
     let descriptionValue = document.querySelector(".note-description").children[1].value;
 
     let item = {
-      userId: currentUserId,
+      userId: user.uid,
       index: noteListData.length,
       heading: headingValue,
       description: descriptionValue,
@@ -102,7 +102,7 @@ export default function Notes(props) {
     .then((snapshot)=>{
       let nList = [];
       snapshot.docs.forEach((doc)=>{
-        if (doc.data().userId === currentUserId) {
+        if (doc.data().userId === user) {
           nList.push({ ...doc.data(), docId: doc.id });
         }
       })
@@ -132,7 +132,7 @@ export default function Notes(props) {
 
   return (
     <>
-      {(currentUserId == null && noteListData.length==0)?(
+      {(user == null && noteListData.length==0)?(
         <div
           style={{
             width: "100vw",
